@@ -44,7 +44,7 @@ def get_routes(city_names):
             [(a, b), (b,c), (b,c)]
             intertools.combinatioms(list, size 2) gives all combinations
     """
-    route_Combinations = itertools.combinations(city_names, 2)
+    route_Combinations = list(itertools.combinations(city_names, 2))
     return route_Combinations
 
 
