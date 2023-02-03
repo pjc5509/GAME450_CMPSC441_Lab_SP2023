@@ -112,6 +112,8 @@ class Game:
             winner = opponent
         elif decisionArray[player.action][opponent.action] == 0:
             winner = 0
+        else:
+            winner = -1
         self.displayResult(player, opponent, winner)
         return winner
 

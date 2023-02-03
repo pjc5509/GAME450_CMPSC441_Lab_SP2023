@@ -45,14 +45,23 @@ class AiPlayer(Player):
         self.initial_weapon = random_weapon_select()
     
     def weapon_selecting_strategy(self):
-        pass
+        
+
+        if len(self.opponent_choices) == 0:
+            return self.initial_weapon
+        elif len(self.opponent_choices) > 2 and (self.opponent_choices[-1] == self.my_choices[-2]):
+            return (self.my_choices[-1] + 1)%3
+        
+        return (self.opponent_choices[-1] + 1)%3
+
+        
 
 
 if __name__ == '__main__':
     final_tally = [0]*3
     for agent in range(3):
         for i in range(100):
-            tally = [score for _, score in run_game(AiPlayer("AI"), 100, agent)]
+            tally = [score for _, score in run_game(AiPlayer("AI"), 100, agent)]# change 100 to 20
             if sum(tally) == 0:
                 final_tally[agent] = 0
             else:
