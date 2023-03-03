@@ -31,6 +31,8 @@ def game_fitness(cities, idx, elevation, size):
     3. The cities may also not be on top of mountains or on top of each other
     DO NOt return fitness of 0 or less
     """
+    
+   
     return fitness
 
 

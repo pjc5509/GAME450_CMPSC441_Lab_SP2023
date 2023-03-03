@@ -73,6 +73,6 @@ if __name__ == "__main__":
         for r in routes:
             pointA = city_locations_dict[r[0]]
             pointB = city_locations_dict[r[1]]
-            pygame.draw.line(screen, [0,0,0], pointA, pointB, 3)
+            pygame.draw.aaline(screen, [0,0,0], pointA, pointB, 3)
 
         pygame.display.flip()
