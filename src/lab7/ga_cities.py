@@ -29,6 +29,7 @@ def game_fitness(cities, idx, elevation, size):
     1. The cities should not be under water
     2. The cities should have a realistic distribution across the landscape
     3. The cities may also not be on top of mountains or on top of each other
+    DO NOt return fitness of 0 or less
     """
     return fitness
 

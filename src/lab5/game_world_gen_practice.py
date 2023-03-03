@@ -70,11 +70,9 @@ if __name__ == "__main__":
         for c in range(len(city_locations_dict)):
             pygame.draw.circle(screen,[255,70,0], city_locations[c], 5)
         ''' draw first 10 routes '''
-        for r in range(10):
-            route = routes[r]
-            print(route[0])
-            #pointA = city_locations(city_locations_dict[route[0]])
-            #pointB = city_locations(city_names.index(routes[r][1]))
-            #pygame.draw.line(screen, [0,0,0], 0, 1, 1)
+        for r in routes:
+            pointA = city_locations_dict[r[0]]
+            pointB = city_locations_dict[r[1]]
+            pygame.draw.line(screen, [0,0,0], pointA, pointB, 3)
 
         pygame.display.flip()
