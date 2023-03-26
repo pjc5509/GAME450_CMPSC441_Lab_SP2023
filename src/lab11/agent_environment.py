@@ -101,7 +101,7 @@ if __name__ == "__main__":
     """ Add a line below that will reset the player variable to 
     a new object of PyGameAIPlayer class."""
     
-    player = PyGameAIPlayer()
+    
 
     state = State(
         current_city=start_city,
@@ -111,6 +111,8 @@ if __name__ == "__main__":
         cities=cities,
         routes=routes,
     )
+
+    player = PyGameAIPlayer(state)
 
     while True:
         action = player.selectAction(state)
