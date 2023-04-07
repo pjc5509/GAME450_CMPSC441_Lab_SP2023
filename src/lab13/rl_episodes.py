@@ -74,6 +74,18 @@ def run_episodes(n_episodes):
         Return the action values as a dictionary of dictionaries where the keys are states and 
             the values are dictionaries of actions and their values.
     '''
+   
+    player1 = PyGameRandomCombatPlayer("RCP")
+    player2 = PyGameComputerCombatPlayer("opponet")
+    
+    
+    ep = []
+    for i in range(n_episodes):
+        
+        ep.append(run_episode(player1, player2))
+
+    print(ep)
+    action_values= ep
 
     return action_values
 
@@ -99,8 +111,9 @@ def test_policy(policy):
 
 
 if __name__ == "__main__":
-    action_values = run_episodes(10000)
+    #action_values = run_episodes(10000)
+    action_values = run_episodes(100)
     print(action_values)
-    optimal_policy = get_optimal_policy(action_values)
-    print(optimal_policy)
-    print(test_policy(optimal_policy))
+    #optimal_policy = get_optimal_policy(action_values)
+    #print(optimal_policy)
+    #print(test_policy(optimal_policy))
