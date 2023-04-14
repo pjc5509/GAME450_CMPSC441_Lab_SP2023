@@ -24,34 +24,41 @@ from lab11.pygame_human_player import PyGameHumanCombatPlayer
     
 
 def run_episode(player1, player2):
+    RL = []
     
 
     episode = Combat()
-    #while not episode.gameOver:
-    start_hp1 = player1.health
-    start_hp2 = player2.health
-    episode.newRound()
-    episode.takeTurn(player1, player2)
-   
-    state = (player1.health, player2.health)
-    
-    Action = player1.weapon
-   
+    while not episode.gameOver:
+        start_hp1 = player1.health
+        start_hp2 = player2.health
 
-    Reward = 0
-    if(start_hp1 > player1.health):
-        Reward -= 1
-    if(start_hp2 > player2.health):
-        Reward += 1
-  
-    RL = [state, Action, Reward]
+        #Run combat turn
+        player1.selectAction(episode)
+        player2.selectAction(episode)
+        episode.newRound()
+        episode.takeTurn(player1, player2)
+        print("%s's health = %d" % (player1.name, player1.health))
+        print("%s's health = %d" % (player2.name, player2.health))
+        episode.checkWin(player1, player2)
     
+
+        State = (player1.health, player2.health) 
+        Action = player1.weapon
+
+        #calculate reward
+        Reward = 0
+        if(start_hp1 > player1.health):
+            Reward -= 1
+        if(start_hp2 > player2.health):
+            Reward += 1
+        
+  
+        RL.append((State, Action, Reward))
     return RL
 
 if __name__ == "__main__":
     player = PyGameHumanCombatPlayer("player")
     op = PyGameComputerCombatPlayer("CPU")
-    for u in range(10):
-        run_episode(player, op)
-        print("%s's health = %d" % (player.name, player.health))
-        print("%s's health = %d" % (op.name, op.health))
+    
+    print(run_episode(player, op))
+        

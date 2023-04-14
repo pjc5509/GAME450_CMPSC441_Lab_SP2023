@@ -81,12 +81,13 @@ def run_episodes(n_episodes):
     
     ep = []
     for i in range(n_episodes):
-        
-        ep.append(run_episode(player1, player2))
+        ran = run_episode(player1, player2)
+        ep= ep + ran
 
-    print(ep)
-    action_values= ep
+    print (ep)
+    action_values = dict((state,{action: reward}) for state, action, reward in ep)
 
+    
     return action_values
 
 
@@ -112,7 +113,7 @@ def test_policy(policy):
 
 if __name__ == "__main__":
     #action_values = run_episodes(10000)
-    action_values = run_episodes(100)
+    action_values = run_episodes(11)
     print(action_values)
     #optimal_policy = get_optimal_policy(action_values)
     #print(optimal_policy)
