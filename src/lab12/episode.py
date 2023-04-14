@@ -25,8 +25,9 @@ from lab11.pygame_human_player import PyGameHumanCombatPlayer
 
 def run_episode(player1, player2):
     RL = []
+    player1.health = 100
+    player2.health = 100
     
-
     episode = Combat()
     while not episode.gameOver:
         start_hp1 = player1.health

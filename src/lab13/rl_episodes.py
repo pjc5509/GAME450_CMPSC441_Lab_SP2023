@@ -78,18 +78,33 @@ def run_episodes(n_episodes):
     player1 = PyGameRandomCombatPlayer("RCP")
     player2 = PyGameComputerCombatPlayer("opponet")
     
-    
+    print("Run episodes")
+
+    blockPrint()
+
     ep = []
-    for i in range(n_episodes):
-        ran = run_episode(player1, player2)
-        ep= ep + ran
+    for i in range(n_episodes): 
+        ep.append(get_history_returns(run_episode(player1, player2)))
 
-    print (ep)
-    action_values = dict((state,{action: reward}) for state, action, reward in ep)
+    enablePrint()
 
     
+    action_values = ep
+
     return action_values
 
+#for testing=================================================================================
+import sys, os
+
+# Disable
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+# Restore
+def enablePrint():
+    sys.stdout = sys.__stdout__
+
+#============================================================================
 
 def get_optimal_policy(action_values):
     optimal_policy = defaultdict(int)
@@ -113,8 +128,9 @@ def test_policy(policy):
 
 if __name__ == "__main__":
     #action_values = run_episodes(10000)
-    action_values = run_episodes(11)
+    action_values = run_episodes(1111)
     print(action_values)
-    #optimal_policy = get_optimal_policy(action_values)
+    print("getting optimal")
+    optimal_policy = get_optimal_policy(action_values)
     #print(optimal_policy)
     #print(test_policy(optimal_policy))
