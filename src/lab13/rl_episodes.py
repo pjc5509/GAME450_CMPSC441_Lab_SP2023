@@ -95,18 +95,6 @@ def run_episodes(n_episodes):
 
 
 
-#for testing=================================================================================
-import sys, os
-
-# Disable
-def blockPrint():
-    sys.stdout = open(os.devnull, 'w')
-
-# Restore
-def enablePrint():
-    sys.stdout = sys.__stdout__
-
-#============================================================================
 
 def get_optimal_policy(action_values):
     optimal_policy = defaultdict(int)
@@ -135,6 +123,5 @@ if __name__ == "__main__":
     print("getting optimal")
     optimal_policy = get_optimal_policy(action_values)
     print(optimal_policy)
-    print(optimal_policy[(100, 100)])
     input("Press enter to begin policy test")
     print(test_policy(optimal_policy))
