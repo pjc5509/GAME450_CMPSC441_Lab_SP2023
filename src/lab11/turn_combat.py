@@ -129,7 +129,7 @@ def run_console_combat():
     # Main Combat Loop
     while not currentGame.gameOver:
         for player in players:
-            player.selectWeapon()
+            player
         currentGame.newRound()
         currentGame.takeTurn(human, computer)
         print("%s's health = %d" % (human.name, human.health))

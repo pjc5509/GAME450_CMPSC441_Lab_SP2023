@@ -42,7 +42,8 @@ class PyGamePolicyCombatPlayer(CombatPlayer):
         self.policy = policy
 
     def weapon_selecting_strategy(self):
-        self.weapon = self.policy[self.current_env_state]
+        self.weapon = self.policy[(self.current_env_state)]
+        #self.weapon = self.policy[(100, 100)]
         return self.weapon
 
 
@@ -80,18 +81,19 @@ def run_episodes(n_episodes):
     
     print("Run episodes")
 
-    blockPrint()
-
-    ep = []
+    action_values = {}
     for i in range(n_episodes): 
-        ep.append(get_history_returns(run_episode(player1, player2)))
+        ep = run_random_episode(player1, player2)
+        history_returns = get_history_returns(ep)
+        action_values.update(history_returns)
 
-    enablePrint()
-
-    
-    action_values = ep
 
     return action_values
+
+
+
+
+
 
 #for testing=================================================================================
 import sys, os
@@ -116,6 +118,7 @@ def get_optimal_policy(action_values):
 def test_policy(policy):
     names = ["Legolas", "Saruman"]
     total_reward = 0
+
     for _ in range(100):
         player1 = PyGamePolicyCombatPlayer(names[0], policy)
         player2 = PyGameComputerCombatPlayer(names[1])
@@ -127,10 +130,11 @@ def test_policy(policy):
 
 
 if __name__ == "__main__":
-    #action_values = run_episodes(10000)
-    action_values = run_episodes(1111)
+    action_values = run_episodes(10000000)
     print(action_values)
     print("getting optimal")
     optimal_policy = get_optimal_policy(action_values)
-    #print(optimal_policy)
-    #print(test_policy(optimal_policy))
+    print(optimal_policy)
+    print(optimal_policy[(100, 100)])
+    input("Press enter to begin policy test")
+    print(test_policy(optimal_policy))

@@ -25,17 +25,21 @@ from lab11.pygame_human_player import PyGameHumanCombatPlayer
 
 def run_episode(player1, player2):
     RL = []
-    player1.health = 100
-    player2.health = 100
+    
     
     episode = Combat()
     while not episode.gameOver:
         start_hp1 = player1.health
         start_hp2 = player2.health
 
+        State = (player1.health, player2.health) 
+
+        
+
         #Run combat turn
-        player1.selectAction(episode)
-        player2.selectAction(episode)
+        player1.selectAction((State))
+        player2.selectAction(State)
+        #player2.selectAction(episode)
         episode.newRound()
         episode.takeTurn(player1, player2)
         print("%s's health = %d" % (player1.name, player1.health))
@@ -43,7 +47,7 @@ def run_episode(player1, player2):
         episode.checkWin(player1, player2)
     
 
-        State = (player1.health, player2.health) 
+        
         Action = player1.weapon
 
         #calculate reward
