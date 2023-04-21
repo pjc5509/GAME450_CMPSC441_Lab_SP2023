@@ -19,7 +19,6 @@ sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 
 from lab11.turn_combat import CombatPlayer, Combat
 from lab11.pygame_combat import PyGameComputerCombatPlayer
-from lab11.turn_combat import CombatPlayer
 from lab11.pygame_human_player import PyGameHumanCombatPlayer
     
 
@@ -39,7 +38,6 @@ def run_episode(player1, player2):
         #Run combat turn
         player1.selectAction((State))
         player2.selectAction(State)
-        #player2.selectAction(episode)
         episode.newRound()
         episode.takeTurn(player1, player2)
         print("%s's health = %d" % (player1.name, player1.health))

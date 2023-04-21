@@ -80,19 +80,43 @@ def run_episodes(n_episodes):
     player2 = PyGameComputerCombatPlayer("opponet")
     
     print("Run episodes")
-
-    action_values = {}
+    
+    episodes = {}
     for i in range(n_episodes): 
+        print("Episode ", i)
+        blockPrint()
         ep = run_random_episode(player1, player2)
-        history_returns = get_history_returns(ep)
-        action_values.update(history_returns)
+        enablePrint()
 
+        print("get History")
+        history = get_history_returns(ep)
+        print(history)
+        for state,action in history:
+            if state not in episodes:
+                print("add state: ", state)
+                episodes[state] = {}
+            if action not in episodes[state]:
+                print("add action")
+                episodes[state][action] = []
+            print("add reward")
+            print(history[state][action].values())
+            episodes[state][action].append(reward)
 
+    
+    action_values = episodes
     return action_values
 
 
 
+import sys, os
 
+# Disable
+def blockPrint():
+    sys.stdout = open(os.devnull, 'w')
+
+# Restore
+def enablePrint():
+    sys.stdout = sys.__stdout__
 
 
 
@@ -118,10 +142,11 @@ def test_policy(policy):
 
 
 if __name__ == "__main__":
-    action_values = run_episodes(10000000)
+    #action_values = run_episodes(10000000)
+    action_values = run_episodes(10)
     print(action_values)
-    print("getting optimal")
-    optimal_policy = get_optimal_policy(action_values)
-    print(optimal_policy)
-    input("Press enter to begin policy test")
-    print(test_policy(optimal_policy))
+    #print("getting optimal")
+    #optimal_policy = get_optimal_policy(action_values)
+    #print(optimal_policy)
+   # input("Press enter to begin policy test")
+   # print(test_policy(optimal_policy))
