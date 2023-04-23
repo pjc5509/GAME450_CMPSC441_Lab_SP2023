@@ -88,20 +88,24 @@ def run_episodes(n_episodes):
         ep = run_random_episode(player1, player2)
         enablePrint()
 
-        print("get History")
         history = get_history_returns(ep)
-        print(history)
-        for state,action in history:
+        
+        for state in history.keys():
             if state not in episodes:
-                print("add state: ", state)
+                #Add state
                 episodes[state] = {}
-            if action not in episodes[state]:
-                print("add action")
-                episodes[state][action] = []
-            print("add reward")
-            print(history[state][action].values())
-            episodes[state][action].append(reward)
+            for action in history[state]:
+                if action not in episodes[state]:
+                    #add action
+                    episodes[state][action]=[]
+                episodes[state][action].append(history[state][action])
 
+        action_value = {}
+        for state in episodes.keys():
+            for action in episodes[state]:
+                lis = episodes[state][action]
+                avg = sum(lis) / len(lis)
+                action_value.update({state: {action: avg}})
     
     action_values = episodes
     return action_values
@@ -142,11 +146,8 @@ def test_policy(policy):
 
 
 if __name__ == "__main__":
-    #action_values = run_episodes(10000000)
-    action_values = run_episodes(10)
+    action_values = run_episodes(10000)
     print(action_values)
-    #print("getting optimal")
-    #optimal_policy = get_optimal_policy(action_values)
-    #print(optimal_policy)
-   # input("Press enter to begin policy test")
-   # print(test_policy(optimal_policy))
+    optimal_policy = get_optimal_policy(action_values)
+    print(optimal_policy)
+    print(test_policy(optimal_policy))

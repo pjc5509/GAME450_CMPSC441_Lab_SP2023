@@ -50,10 +50,12 @@ def run_episode(player1, player2):
 
         #calculate reward
         Reward = 0
-        if(start_hp1 > player1.health):
-            Reward -= 1
-        if(start_hp2 > player2.health):
-            Reward += 1
+        if start_hp1 > player1.health:
+            Reward -= 5
+        if start_hp2 > player2.health:
+            Reward += 2
+        elif start_hp2 == player2.health and player1.weapon == player2.weapon:
+            Reward-=50
         
   
         RL.append((State, Action, Reward))
