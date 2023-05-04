@@ -9,14 +9,16 @@ class PyGameAIPlayer:
 
 
     def __init__(self,state) -> None:
+        """
         def getNeighbors(state, graph):
+            
             n = []
 
             for i in range(10):
                 if self.graph[state.cities.index(state.current_city)][i] != 0:
                     n.append(i)
             return n
-
+        
         def genGraph(state):
             len(state.cities)
             graph = [[0,0,0,0,0,0,0,0,0,0],
@@ -66,7 +68,17 @@ class PyGameAIPlayer:
         if not self.path:
             print("The is no viable path. Useing acient magic to telaport")
             self.path.append[state.destination_city]
-        
+        """
+        visited =[]
+        for i in state.cities:
+            visited.append(0)
+
+        current = state.current_city
+
+        path = []
+        while current != state.destination_city:
+            route = 0
+
         pass   
   
    

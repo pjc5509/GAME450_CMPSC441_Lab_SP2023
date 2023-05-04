@@ -2,6 +2,7 @@ import pygame
 from pathlib import Path
 import sys
 from pathlib import Path
+  
 
 # line taken from turn_combat.py
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
@@ -9,6 +10,7 @@ from lab11.sprite import Sprite
 from lab11.turn_combat import CombatPlayer, Combat
 from lab11.pygame_ai_player import PyGameAICombatPlayer
 from lab11.pygame_human_player import PyGameHumanCombatPlayer
+from lab11.text_generate import Text_Gen
 
 AI_SPRITE_PATH = Path("assets/ai.png")
 
@@ -43,7 +45,7 @@ def run_turn(currentGame, player, opponent):
     players = [player, opponent]
     state = (player.health, opponent.health)
     states = list(state, tuple(reversed(state)))
-    #states = list(reversed([(player.health, player.weapon) for player in players]))
+    states = list(reversed([(player.health, player.weapon) for player in players]))
     for current_player, state in zip(players, states):
         current_player.selectAction(state)
 
@@ -56,15 +58,19 @@ def run_turn(currentGame, player, opponent):
 
 def run_pygame_combat(combat_surface, screen, player_sprite):
     currentGame = Combat()
-    #player = PyGameHumanCombatPlayer("Legolas")
+    player = PyGameHumanCombatPlayer("Legolas")
     """ Add a line below that will reset the player object
     to an instance of the PyGameAICombatPlayer class"""
-    player = PyGameAICombatPlayer("Legolas")
+    #player = PyGameAICombatPlayer("Legolas")
 
     opponent = PyGameComputerCombatPlayer("Computer")
+
+    players = [player, opponent]
+
     opponent_sprite = Sprite(
         AI_SPRITE_PATH, (player_sprite.sprite_pos[0] - 100, player_sprite.sprite_pos[1])
     )
+    tg = Text_Gen()
 
     # Main Game Loop
     while not currentGame.gameOver:
@@ -73,9 +79,26 @@ def run_pygame_combat(combat_surface, screen, player_sprite):
         states = list(reversed([(player.health, player.weapon) for player in players]))
         for current_player, state in zip(players, states):
             current_player.selectAction(state)
+            #current_player.weapon_selecting_strategy()
 
         currentGame.newRound()
+        opHP = opponent.health
         currentGame.takeTurn(player, opponent)
         print("%s's health = %d" % (player.name, player.health))
         print("%s's health = %d" % (opponent.name, opponent.health))
+
+        #Check if opponet took damage
+        if opHP != opponent.health:
+            miss = 0
+        else:
+            miss = 1
+        
+        tg.responce(player.weapon, miss)
+
+
         currentGame.checkWin(player, opponent)
+
+    #check if player lives
+    if player.health > 0:
+        return 1
+    else: return 0

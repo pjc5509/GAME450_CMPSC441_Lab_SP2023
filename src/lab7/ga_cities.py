@@ -13,6 +13,7 @@ fulfilled. Clearly explain in comments which line of code and variables are used
 import matplotlib.pyplot as plt
 import pygad
 import numpy as np
+import math
 
 import sys
 from pathlib import Path
@@ -31,7 +32,18 @@ def game_fitness(cities, idx, elevation, size):
     3. The cities may also not be on top of mountains or on top of each other
     DO NOt return fitness of 0 or less
     """
-    
+
+    for city in cities:
+        #1. Make sure city location elevation is below a number
+        #if city :
+
+        #2. Check if cities are farthere away
+        for otherCity in slice(cities.index(city)):
+            dis = math.dist(city,otherCity)
+            if dis > 3:
+                fitness += 1
+
+         #3. Make sure city location elevation is above a number
    
     return fitness
 
@@ -118,6 +130,8 @@ if __name__ == "__main__":
     n_cities = 10
     elevation = []
     """ initialize elevation here from your previous code"""
+
+
     # normalize landscape
     elevation = np.array(elevation)
     elevation = (elevation - elevation.min()) / (elevation.max() - elevation.min())

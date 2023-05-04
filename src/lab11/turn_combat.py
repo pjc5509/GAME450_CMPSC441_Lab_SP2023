@@ -7,6 +7,8 @@ from pathlib import Path
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 from lab4.rock_paper_scissor import Player
 
+
+
 weapons = ["Sword", "Arrow", "Fire"]
 
 
@@ -121,7 +123,7 @@ class Combat:
 def run_console_combat():
     # Setup Combat Objects
     currentGame = Combat()
-    human = Player("Mark")
+    human = CombatPlayer("Mark")
     computer = ComputerCombatPlayer("Computer")
 
     players = [human, computer]
@@ -129,9 +131,12 @@ def run_console_combat():
     # Main Combat Loop
     while not currentGame.gameOver:
         for player in players:
-            player
+            player.weapon_selecting_strategy()
         currentGame.newRound()
         currentGame.takeTurn(human, computer)
         print("%s's health = %d" % (human.name, human.health))
         print("%s's health = %d" % (computer.name, computer.health))
         currentGame.checkWin(human, computer)
+
+if __name__ == "__main__":
+    run_console_combat()
